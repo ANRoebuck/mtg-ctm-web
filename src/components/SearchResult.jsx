@@ -3,22 +3,18 @@ import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import SaveIcon from '@material-ui/icons/Save';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import FoilStar from "./FoilStar";
+import { observer } from 'mobx-react';
+import { pricesStore } from '../store/PricesStore';
 
-const SearchResult = (discoveredPrice, isSaved, addSavedPrice, removeSavedPrice) => {
 
-  const {name, logo, title, subtitle, price, stock, imgSrc, productRef, expansion, isFoil} = discoveredPrice;
+const SearchResult = observer(({ result }) => {
 
-  const onClickSaveWidget = () => {
-    if (!isSaved) addSavedPrice(discoveredPrice);
-    else removeSavedPrice(discoveredPrice);
-  }
-
-  const onClickLink = () => window.open(productRef, "_blank");
+  const { seller, title, imgSrc, productRef, expansion, price_textRepresentation, subtitle, isFoil } = result;
 
   return (
-    <div className="discovered-price" data-in-stock={stock.value > 0}>
+    <div className="discovered-price">
 
-      <img className="logo" src={logo} alt={name}/>
+      <img className="logo" src={pricesStore.logoForSeller(seller)} alt={seller}/>
 
       {isFoil ? <FoilStar/> : null}
 
@@ -27,27 +23,27 @@ const SearchResult = (discoveredPrice, isSaved, addSavedPrice, removeSavedPrice)
       <div className="expansion">{expansion}</div>
 
       <div className="discovered-price-img-container">
-        <img className="discovered-price-img" src={imgSrc} alt={name}/>
+        <img className="discovered-price-img" src={imgSrc} alt={seller}/>
       </div>
 
-      <div className="stock-count">{stock.text}</div>
+      {/* <div className="stock-count">{stock.text}</div> */}
 
-      <div className="price">{!isNaN(price.value) ? price.text : null}</div>
+      <div className="price">{price_textRepresentation}</div>
 
       <div className="widgets">
         <div className="bookmark">
-          {isSaved
-            ? <DeleteForeverIcon onClick={onClickSaveWidget} />
-            : <SaveIcon onClick={onClickSaveWidget} />}
+          {pricesStore.isBookmarked(result)
+            ? <DeleteForeverIcon onClick={() => pricesStore.deleteBookmark(result)} />
+            : <SaveIcon onClick={() => pricesStore.addBookmark(result)} />}
         </div>
 
         <div className="product-link">
-          <ShoppingCartIcon onClick={onClickLink}/>
+          <ShoppingCartIcon onClick={() => window.open(productRef, "_blank")}/>
         </div>
       </div>
 
     </div>
   )
-};
+});
 
 export default SearchResult;

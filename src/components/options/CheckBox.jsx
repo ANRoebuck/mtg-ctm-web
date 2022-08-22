@@ -1,6 +1,6 @@
 import React from 'react';
 
-const CheckBox = ({ option, checked, onChange }) => {
+const CheckBox = ({ option = '', checked, onChange }) => {
 
   return (
     <div className="radio">

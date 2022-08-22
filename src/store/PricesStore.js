@@ -2,6 +2,7 @@
 import { makeAutoObservable } from 'mobx';
 import { makePersistable } from 'mobx-persist-store';
 import { filterFoilsOptions, sortPriceOptions } from '../utils/enums';
+import { maybeFilterFoils, samePrice, sortByPrice, sortBySeller } from '../utils/sortAndFilter';
 import { configureSellers } from '../utils/sellers';
 
 const dummyPrices = [
@@ -78,31 +79,6 @@ const dummyPrices = [
 ];
 
 
-const sortBySeller = (a, b) => a.seller.localeCompare(b.seller);
-
-const sortPriceAscending = (a, b) => a.price_relativeUnits - b.price_relativeUnits;
-const sortPriceDescending = (a, b) => b.price_relativeUnits - a.price_relativeUnits;
-const sortByPrice = (sortBy) => sortBy === sortPriceOptions.asc ? sortPriceAscending : sortPriceDescending;
-
-const filterFoilOnly = (p) => p.isFoil;
-const filterNonFoilOnly = (p) => !p.isFoil;
-const maybeFilterFoils = (filterBy) => {
-    switch (filterBy) {
-        case filterFoilsOptions.foil:
-            return filterFoilOnly;
-        case filterFoilsOptions.nonFoil:
-            return filterNonFoilOnly;
-        default:
-            return () => true;
-    }
-};
-
-const samePrice = (a, b) =>
-    a.seller === b.seller &&
-    a.title === b.title &&
-    a.subtitle === b.subtitle &&
-    a.expansion === b.expansion;
-
 
 class PricesStore {
 
@@ -137,6 +113,7 @@ class PricesStore {
             .filter(({ seller }) => this.isActiveSeller(seller))
             .filter(maybeFilterFoils(this.filterFoilsBy))
             .sort(sortByPrice(this.sortPriceBy));
+            // .sort(sortFavouriteFirst)
     }
 
     get sortedBookmarks() {
@@ -148,11 +125,13 @@ class PricesStore {
 
     isActiveSeller = (seller) => this.sellers.find(({ name }) => name === seller)?.enabled;
 
+    logoForSeller = (seller) => this.sellers.find(({ name }) => name === seller)?.logo;
+
     clearResults = () => this.discoveredPrices = [];
 
     addPrices = (pricesToAdd) => this.discoveredPrices = [...this.discoveredPrices, ...pricesToAdd];
 
-    addBookmarks = (bookmarksToAdd) => this.bookmarkedPrices = [...this.bookmarkedPrices, ...bookmarksToAdd];
+    addBookmark = (bookmarkToAdd) => this.bookmarkedPrices = [...this.bookmarkedPrices, bookmarkToAdd];
 
     deleteBookmark = (bookmarkToDelete) => {
         const updatedBookmarks = this.bookmarkedPrices.filter(
@@ -177,6 +156,8 @@ class PricesStore {
             };
         });
     };
+
+    setSellerAsFavourite = (sellerName) => null;
 }
 
 export const pricesStore = new PricesStore();
