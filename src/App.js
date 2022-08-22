@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import './app.scss';
 import './compare-prices.scss';
-import SearchMenu from './components/SearchMenu';
+import SearchMenu from './components/search/SearchMenu';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import TabPanel from './components/TabPanel';
 import FAQ from './components/FAQ';
 import Options from './components/options/Options';
-import { BookmarksView, ResultsView } from './components/ResultsViews';
+import { BookmarksView, ResultsView } from './components/results/ResultsViews';
 
 
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { observer } from 'mobx-react';
-import { pricesStore } from '../store/PricesStore';
+import { pricesStore } from '../../store/PricesStore';
 import SearchResult from './SearchResult';
 
 

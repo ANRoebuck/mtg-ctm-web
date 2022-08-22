@@ -69,12 +69,7 @@ class PricesStore {
 
     addBookmark = (bookmarkToAdd) => this.bookmarkedPrices = [...this.bookmarkedPrices, bookmarkToAdd];
 
-    deleteBookmark = (bookmarkToDelete) => {
-        const updatedBookmarks = this.bookmarkedPrices.filter(
-            (p) => !samePrice(p, bookmarkToDelete)
-        );
-        this.bookmarkedPrices = updatedBookmarks;
-    };
+    deleteBookmark = (bookmarkToDelete) => this.bookmarkedPrices = this.bookmarkedPrices.filter((p) => !samePrice(p, bookmarkToDelete));
 
     isBookmarked = (maybeBookmarked) => this.bookmarkedPrices.some((b) => samePrice(b, maybeBookmarked));
 

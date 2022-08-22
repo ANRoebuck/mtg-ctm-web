@@ -4,7 +4,7 @@ import SaveIcon from '@material-ui/icons/Save';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import FoilStar from "./FoilStar";
 import { observer } from 'mobx-react';
-import { pricesStore } from '../store/PricesStore';
+import { pricesStore } from '../../store/PricesStore';
 
 
 const SearchResult = observer(({ result }) => {

@@ -1,9 +1,9 @@
 import React from 'react';
 import AutoSuggestSearchBar from './AutoSuggestSearchBar';
-import ResultsSummary from './ResultsSummary';
+import ResultsSummary from '../results/ResultsSummary';
 import LoadingDoughnut from './LoadingDoughnut';
 import { observer } from 'mobx-react';
-import { pricesStore } from '../store/PricesStore';
+import { pricesStore } from '../../store/PricesStore';
 
 
 const SearchMenu = observer(() => {

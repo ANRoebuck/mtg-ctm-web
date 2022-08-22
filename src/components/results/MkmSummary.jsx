@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
-import { sellers } from "../utils/enums";
+import { sellers } from "../../utils/enums";
 
 
 const MkmSummary = ({mkmLoading, mkmResults}) => {
