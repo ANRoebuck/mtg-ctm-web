@@ -2,19 +2,12 @@ import React from 'react';
 import StarIcon from '@material-ui/icons/Star';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 
-const StarCheckBox = ({ option, checked, onChange }) => {
-
-  const icon = () => {
-    return checked
+const StarCheckBox = ({ checked, onChange }) => (
+  <div className="radio">
+    {checked
       ? <StarIcon  onClick={onChange}/>
-      : <StarBorderIcon onClick={onChange}/>
-  }
-
-  return (
-    <div className="radio">
-      {icon()}
-    </div>
-  )
-};
+      : <StarBorderIcon onClick={onChange}/>}
+  </div>
+);
 
 export default StarCheckBox;
