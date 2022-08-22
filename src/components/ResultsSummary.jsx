@@ -1,25 +1,18 @@
 import React from 'react';
 
-const ResultsSummary = ({sortedResults}) => {
+const ResultsSummary = ({ resultsFound, cheapest }) => {
 
-  const cheapestInStock = sortedResults?.[0]?.stock.value > 0 ? sortedResults[0] : null;
-
-  const resultsByStock = sortedResults.reduce((acc, ele) => {
-    if (ele.stock.value) acc.inStock = acc.inStock + 1;
-    else acc.outOfStock = +acc.outOfStock + 1;
-    return acc;
-  }, {inStock: 0, outOfStock: 0});
+  if (resultsFound === 0) return null;
 
   return (
     <div className="results-summary">
       <div className="results-summary-section">
-        <div className="results-summary-bold">{`${resultsByStock.inStock} results in stock`}</div>
-        <div className="results-summary-light">{`(${resultsByStock.outOfStock} out of stock)`}</div>
+        <div className="results-summary-bold">{`${resultsFound} results found`}</div>
       </div>
-      {cheapestInStock ?
+      {cheapest ?
         <div className="results-summary-section">
-          <div className="results-summary-bold">{`Cheapest: ${cheapestInStock.price.text}`}</div>
-          <div className="results-summary-light">{`(${cheapestInStock.name})`}</div>
+          <div className="results-summary-bold">{`Cheapest: ${cheapest.price_textRepresentation}`}</div>
+          <div className="results-summary-light">{`(${cheapest.seller})`}</div>
         </div> : null }
     </div>
   )

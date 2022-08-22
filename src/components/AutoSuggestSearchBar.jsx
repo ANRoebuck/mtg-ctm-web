@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { throttle } from 'throttle-debounce';
+// import { throttle } from 'throttle-debounce';
 import './auto-suggest-search-bar.scss';
 import { observer } from 'mobx-react';
 import { pricesStore } from '../store/PricesStore';
@@ -48,8 +48,15 @@ const AutoSuggestSearchBar = observer(({ placeholderText = 'Type to search',
     setSearchTerm('');
     setSuggestions(defaultSuggestions());
     pricesStore.clearResults();
-    pricesStore.activeSellers.forEach((seller) => {
-      getPrices(seller.name, toSearchFor).then((prices) => pricesStore.addPrices(prices))});
+
+    pricesStore.activeSellers.forEach(({ name }) => {
+      pricesStore.setSellerLoading(name, true);
+
+      getPrices(name, toSearchFor).then((prices) => {
+          pricesStore.setSellerLoading(name, false);
+          pricesStore.addPrices(prices)
+      });
+    });
   }
 
   // const onSubmit = async (searchFor) => {

@@ -1,11 +1,13 @@
 import React from "react";
 import { Pie } from 'react-chartjs-2';
 
-const LoadingDoughnut = ({loaded, total}) => {
+const LoadingDoughnut = ({ total, loading }) => {
+
+  const loaded = total - loading;
 
   const data = {
     datasets: [{
-      data: [loaded, total - loaded],
+      data: [loaded, loading],
       backgroundColor: ['green', 'black'],
       borderWidth: [1, 1],
       borderColor: 'black',

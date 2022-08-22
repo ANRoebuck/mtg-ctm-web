@@ -12,8 +12,14 @@ const Options = observer(() => (
             Sort and Filter
         </div>
         <div className="options">
-            <SearchOptions title={"Price"} options={Object.values(sortPriceOptions)} selectOption={pricesStore.setSortPriceBy} />
-            <SearchOptions title={"Foils"} options={Object.values(filterFoilsOptions)} selectOption={pricesStore.setFilterFoilsBy} />
+            <SearchOptions  title={"Price"}
+                            options={Object.values(sortPriceOptions)}
+                            selectedOption={pricesStore.sortPriceBy}
+                            setSelectedOption={pricesStore.setSortPriceBy} />
+            <SearchOptions  title={"Foils"}
+                            options={Object.values(filterFoilsOptions)}
+                            selectedOption={pricesStore.filterFoilsBy}
+                            setSelectedOption={pricesStore.setFilterFoilsBy} />
         </div>
 
         <div className="section-heading">

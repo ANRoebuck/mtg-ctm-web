@@ -2,7 +2,7 @@
 import { makeAutoObservable } from 'mobx';
 import { makePersistable } from 'mobx-persist-store';
 import { filterFoilsOptions, sortPriceOptions } from '../utils/enums';
-import { maybeFilterFoils, samePrice, sortByPrice, sortBySeller } from '../utils/sortAndFilter';
+import { maybeFilterFoils, samePrice, sortByPrice, sortBySeller, sortPriceAscending } from '../utils/sortAndFilter';
 import { configureSellers } from '../utils/sellers';
 
 const dummyPrices = [
@@ -83,7 +83,7 @@ const dummyPrices = [
 class PricesStore {
 
     sellers = configureSellers();
-    discoveredPrices = dummyPrices;
+    discoveredPrices = [];
     bookmarkedPrices = [];
     sortPriceBy = sortPriceOptions.asc;
     filterFoilsBy = filterFoilsOptions.all;
@@ -116,6 +116,15 @@ class PricesStore {
             // .sort(sortFavouriteFirst)
     }
 
+    get cheapestPrice() {
+        return this.discoveredPrices
+            .slice()
+            .filter(({ seller }) => this.isActiveSeller(seller))
+            .filter(maybeFilterFoils(this.filterFoilsBy))
+            .sort(sortPriceAscending)
+            [0];
+    }
+
     get sortedBookmarks() {
         return this.bookmarkedPrices
             .slice()
@@ -146,6 +155,8 @@ class PricesStore {
 
     setFilterFoilsBy = (filterBy) => this.filterFoilsBy = filterBy;
 
+    setSellerAsFavourite = (sellerName) => null;
+
     toggleSellerEnabled = (sellerName) => {
         this.sellers = this.sellers.map((s) => {
             let { enabled, name } = s;
@@ -157,7 +168,18 @@ class PricesStore {
         });
     };
 
-    setSellerAsFavourite = (sellerName) => null;
+    setSellerLoading = (sellerName, setLoading) => {
+        this.sellers = this.sellers.map((s) => {
+            let { name, loading } = s;
+            if (name === sellerName) loading = setLoading;
+            return {
+                ...s,
+                loading
+            };
+        });
+    };
+
+    get sellersLoading() { return this.sellers.filter(({ loading }) => loading).length; }
 }
 
 export const pricesStore = new PricesStore();

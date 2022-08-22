@@ -1,6 +1,6 @@
 import axionLogo from '../assets/axion 150x60.png';
 import bigOrbitLogo from '../assets/bigOrbitCards 150x60.png';
-import chaosLogo from '../assets/chaosCards 150x60.png';
+// import chaosLogo from '../assets/chaosCards 150x60.png';
 import harlequinsLogo from '../assets/harlequins 150x60.png';
 import hareruyaLogo from '../assets/hareryua 150x60.png';
 import lazyDragonLogo from '../assets/lazyDragonGaming-3 150x60.jpg';
@@ -9,13 +9,13 @@ import lvlUpLogo from '../assets/lvlUp 150x60.png';
 import magicCardTraderLogo from '../assets/magicCardTrader-black 150x60.png';
 import magicMadhouseLogo from '../assets/magicMadhouse 150x60.png';
 import manaleakLogo from '../assets/manaLeak 150x60.png';
-import mkmLogo from '../assets/mkm 150x60.png';
+// import mkmLogo from '../assets/mkm 150x60.png';
 import mountBattenLogo from '../assets/mountBatten 150x60.png';
 import nerdShakLogo from '../assets/nerdShak 150x60.jpg';
 import pgLeedsLogo from '../assets/patriotGamesLeeds 150x60.png';
 import starCityGamesLogo from '../assets/starCityGames 150x60.png';
 import trollLogo from '../assets/trollTrader 150x60.png';
-import unionCountyLogo from '../assets/unionCountyGames 150x60.png';
+// import unionCountyLogo from '../assets/unionCountyGames 150x60.png';
 
 import { currency } from './enums';
 
