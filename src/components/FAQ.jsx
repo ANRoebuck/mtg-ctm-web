@@ -5,14 +5,16 @@ import '../styles/faq.scss';
 const FAQ = () => {
   return (
     <div className="faq">
-     
-       {FAQs.map((faq, i) => (
+
+      <div className="faqs">
+        {FAQs.map((faq, i) => (
            <div key={'faq-'+i}>
              <h2>{faq.title}</h2>
              <div className="answer">{faq.body}</div>
            </div>
          ))}
-
+      </div>
+     
        <div className="notice">{notice}</div>
 
     </div>

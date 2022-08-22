@@ -10,7 +10,7 @@ import { pricesStore } from '../../store/PricesStore';
 const Options = observer(() => (
     <>
         <div className="section-heading">
-            Sort and Filter
+            Display Options
         </div>
         <div className="options">
             <SearchOptions  title={"Price"}
@@ -24,7 +24,7 @@ const Options = observer(() => (
         </div>
 
         <div className="section-heading">
-            Sellers
+            Tick/untick to include/exclude a store <br></br> Star to show results first
         </div>
         <div className="sellers">
             {pricesStore.sellers.map((seller, i) =>
