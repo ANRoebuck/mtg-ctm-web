@@ -1,5 +1,5 @@
 import React from "react";
-import './results-by-seller.scss';
+import '../../styles/results/results-by-seller.scss';
 
 
 const ResultRow = ({ name, data }) => {

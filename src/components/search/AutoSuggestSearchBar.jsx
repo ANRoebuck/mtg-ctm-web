@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 // import { throttle } from 'throttle-debounce';
-import './auto-suggest-search-bar.scss';
+import '../../styles/search/auto-suggest-search-bar.scss';
 import { observer } from 'mobx-react';
 import { pricesStore } from '../../store/PricesStore';
 import { getAutocompleteSuggestions, getPrices } from '../../gateway/http';

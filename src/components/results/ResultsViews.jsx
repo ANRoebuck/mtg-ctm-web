@@ -1,7 +1,7 @@
 import React from 'react';
 import { observer } from 'mobx-react';
 import { pricesStore } from '../../store/PricesStore';
-import Price from './Price';
+import Result from './Result';
 
 
 export const ResultsView = observer(() =>
@@ -23,7 +23,7 @@ const PricesView = ({ prices, children }) => {
     return (
         <div className="search-results">
             {children}
-            {prices.map((p, i) => <Price result={p} key={'search-result-'+i}/>)}
+            {prices.map((p, i) => <Result result={p} key={'search-result-'+i}/>)}
         </div>
     )
 };

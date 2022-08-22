@@ -1,5 +1,5 @@
 import React from 'react';
-import './options.scss';
+import '../../styles/options/options.scss';
 import SearchOptions from './SearchOptions';
 import SellerOption from './SellerOption';
 import { filterFoilsOptions, sortPriceOptions } from '../../utils/enums';

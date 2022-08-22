@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import './app.scss';
-import './compare-prices.scss';
+import './compare-the-magic.scss';
 import SearchMenu from './components/search/SearchMenu';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
