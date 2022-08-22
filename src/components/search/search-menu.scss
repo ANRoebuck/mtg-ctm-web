@@ -1,0 +1,86 @@
+.search-menu {
+    display: grid;
+    grid-template-columns: 200px 1fr 200px;
+    grid-template-rows: auto auto auto;
+    grid-template-areas:
+          ". search doughnut"
+          "views views views"
+          "tab tab tab";
+    min-height: 100px;
+    max-width: 100%;
+
+
+    .auto-suggest-search-bar {
+        grid-area: search;
+        margin: 20px 0;
+      }
+  
+      .loading-doughnut {
+        grid-area: doughnut;
+        max-height: 100px;
+  
+        .element {
+          max-height: 100px;
+          max-width: 100px;
+        }
+      }
+  
+      .results-summary {
+        grid-area: doughnut;
+        color: white;
+        margin: 10px;
+        text-align: center;
+      }
+  
+      .results-summary-section {
+        border-bottom: solid 1px grey;
+        margin-bottom: 5px;
+        padding-bottom: 5px;
+      }
+  
+      .results-summary-light {
+        font-size: 75%;
+      }
+  
+      .MuiPaper-root {
+        grid-area: views;
+      }
+
+}
+
+
+
+
+@media only screen and (max-width: 479px) {
+
+    .search-menu {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto auto;
+      grid-template-areas:
+              "search doughnut"
+              "views views";
+
+        
+              .search-input {
+                grid-area: search;
+              }
+        
+              .loading-doughnut {
+                grid-area: doughnut;
+              }
+        
+              .views {
+                grid-area: views;
+        
+                .compare-prices-view-option {
+                  width: 60px;
+                  text-align: center;
+                  margin: 10px;
+                  padding: 10px;
+                }
+              }
+    }
+
+
+}

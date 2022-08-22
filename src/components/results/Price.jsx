@@ -1,4 +1,5 @@
 import React from 'react';
+import './price.scss';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import SaveIcon from '@material-ui/icons/Save';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
@@ -7,7 +8,7 @@ import { observer } from 'mobx-react';
 import { pricesStore } from '../../store/PricesStore';
 
 
-const SearchResult = observer(({ result }) => {
+const Price = observer(({ result }) => {
 
   const { seller, title, imgSrc, productRef, expansion, price_textRepresentation, subtitle, isFoil } = result;
 
@@ -46,4 +47,4 @@ const SearchResult = observer(({ result }) => {
   )
 });
 
-export default SearchResult;
+export default Price;

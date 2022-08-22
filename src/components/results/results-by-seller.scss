@@ -1,0 +1,17 @@
+.table-container {
+    background-color: white;
+    border: solid 1px black;
+    border-radius: 10px;
+    margin: 15px;
+    padding: 25px;
+
+    table {
+      table-layout: fixed;
+    }
+
+    td {
+      width: 33%;
+    }
+  }
+
+  

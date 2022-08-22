@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import './mkm-summary.scss';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import { sellers } from "../../utils/enums";
 

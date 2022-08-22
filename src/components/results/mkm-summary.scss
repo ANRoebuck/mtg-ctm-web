@@ -1,0 +1,79 @@
+
+    .mkm-summary {
+      margin: 15px;
+      padding: 25px;
+      background-color: white;
+      border: solid 1px black;
+      border-radius: 10px;
+
+      .mkm-result {
+        display: grid;
+        grid-template-columns: 150px 2fr 1fr 1fr;
+        grid-template-rows: auto auto auto auto;
+        grid-template-areas:
+              "logo picture name name"
+              "logo picture expansion expansion"
+              "button-left picture . button-right"
+              "foil-star picture from trend";
+
+        .seller-logo {
+          grid-area: logo;
+        }
+
+        .card-image {
+          grid-area: picture;
+          height: 250px;
+        }
+
+        .card-name {
+          grid-area: name;
+        }
+
+        .expansion {
+          grid-area: expansion;
+        }
+
+        .price-from {
+          grid-area: from;
+        }
+
+        price-trend {
+          grid-area: trend;
+        }
+
+        .button-left {
+          grid-area: button-left;
+          height: 50px;
+          width: 50px;
+        }
+
+        .button-right {
+          grid-area: button-right;
+          height: 50px;
+          width: 50px;
+        }
+
+      }
+    }
+
+
+    @media only screen and (max-width: 479px) {
+        .mkm-summary {
+            margin: 5px;
+            padding: 10px 20px 10px 10px;
+            border: none;
+            border-bottom: solid 1px black;
+    
+            .mkm-result {
+              display: grid;
+              grid-template-columns: 2fr 1fr 1fr;
+              grid-template-rows: auto auto auto auto;
+              grid-template-areas:
+                    "name name name"
+                    "picture logo logo"
+                    "picture button-left button-left"
+                    "picture price-trend button-right";
+    
+            }
+          }
+    }

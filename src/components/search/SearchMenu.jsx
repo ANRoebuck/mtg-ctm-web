@@ -1,4 +1,5 @@
 import React from 'react';
+import './search-menu.scss';
 import AutoSuggestSearchBar from './AutoSuggestSearchBar';
 import ResultsSummary from '../results/ResultsSummary';
 import LoadingDoughnut from './LoadingDoughnut';
@@ -12,7 +13,7 @@ const SearchMenu = observer(() => {
 
   return (
 
-      <div className="compare-prices-menu">
+      <div className="search-menu">
         <AutoSuggestSearchBar />
 
         {finishedLoading ?

@@ -28,7 +28,7 @@ const App = () => {
   return (
     <div className="App">
 
-        <div className="compare-prices">
+        <div className="compare-the-magic">
 
             <SearchMenu />
 

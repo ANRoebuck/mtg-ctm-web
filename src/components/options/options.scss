@@ -1,0 +1,11 @@
+.section-heading {
+    color: white;
+    margin: 15px;
+}
+
+.options, .sellers {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 15px;
+}

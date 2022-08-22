@@ -1,4 +1,6 @@
 import React from "react";
+import './results-by-seller.scss';
+
 
 const ResultRow = ({ name, data }) => {
   return (
