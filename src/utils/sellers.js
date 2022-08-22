@@ -63,11 +63,11 @@ export const sellers = {
     logo: harlequinsLogo,
     currency: currency.GBP,
   },
-  lazyDragon : {
-    name: 'Lazy Dragon Gaming',
-    logo: lazyDragonLogo,
-    currency: currency.GBP,
-  },
+  // lazyDragon : {
+  //   name: 'Lazy Dragon Gaming',
+  //   logo: lazyDragonLogo,
+  //   currency: currency.GBP,
+  // },
   lvlUp: {
     name: 'Lvl Up Gaming',
     logo: lvlUpLogo,
