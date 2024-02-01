@@ -129,7 +129,7 @@ export const sellers = {
   hareruya: {
     name: 'Hareruya',
     logo: hareruyaLogo,
-    currency: currency.GBP,
+    currency: currency.JPY,
   },
   starCityGames: {
     name: 'Star City Games',

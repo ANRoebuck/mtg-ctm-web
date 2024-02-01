@@ -1,4 +1,4 @@
-import { removeDiacritics } from "./utils";
+import { removeDiacritics } from './utils';
 
 
 
