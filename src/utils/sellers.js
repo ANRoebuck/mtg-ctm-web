@@ -3,7 +3,7 @@ import axionLogo from '../assets/axion 150x60.png';
 import boardsAndSwordsLogo from '../assets/boardsAndSwords 5to2.png';
 // import chaosLogo from '../assets/chaosCards 150x60.png';
 import diceSaloonLogo from '../assets/diceSaloonSingles 500x200.png';
-import doubleSleevedLogo from '../assets/doubleSleeved 5to2.png';
+// import doubleSleevedLogo from '../assets/doubleSleeved 5to2.png';
 import gameHQLogo from '../assets/gameHQ 250x100.png';
 import gatheringPoingLogo from '../assets/gatheringPointGames 450x180.png';
 // import hareruyaLogo from '../assets/hareryua 150x60.png';
@@ -20,9 +20,9 @@ import manaleakLogo from '../assets/manaLeak 150x60.png';
 // import mountBattenLogo from '../assets/mountBatten 150x60.png';
 // import nerdShakLogo from '../assets/nerdShak 150x60.jpg';
 import pgLeedsLogo from '../assets/patriotGamesLeeds 150x60.png';
-import skywardFireLogo from '../assets/skywardFire 790x316.png';
+import skywardFireLogo from '../assets/skywardFire 580x232.png';
 import starCityGamesLogo from '../assets/starCityGames-new 250x100.png';
-import trollLogo from '../assets/trollTrader-new 600x120.png';
+import trollLogo from '../assets/trollTrader-new 600x240.png';
 // import unionCountyLogo from '../assets/unionCountyGames 150x60.png';
 
 import { currency } from './enums';
@@ -64,11 +64,6 @@ export const sellers = {
   diceSaloon: {
     name: 'Dice Saloon',
     logo: diceSaloonLogo,
-    currency: currency.GBP,
-  },
-  doubleSleeved: {
-    name: 'Double Sleeved',
-    logo: doubleSleevedLogo,
     currency: currency.GBP,
   },
   gameHQ: {
