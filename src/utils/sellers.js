@@ -58,7 +58,7 @@ export const sellers = {
     currency: currency.GBP,
   },
   boardsAndSwords: {
-    name: 'Boards and Swords',
+    name: 'Boards & Swords',
     logo: boardsAndSwordsLogo,
     currency: currency.GBP,
   },
