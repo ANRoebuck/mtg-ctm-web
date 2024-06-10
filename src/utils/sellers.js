@@ -22,6 +22,7 @@ import manaleakLogo from '../assets/manaLeak 150x60.png';
 import pgLeedsLogo from '../assets/patriotGamesLeeds 150x60.png';
 import skywardFireLogo from '../assets/skywardFire 580x232.png';
 import starCityGamesLogo from '../assets/starCityGames-new 250x100.png';
+import totalCardsLogo from '../assets/totalCards 500x200.png';
 import trollLogo from '../assets/trollTrader-new 600x240.png';
 // import unionCountyLogo from '../assets/unionCountyGames 150x60.png';
 
@@ -124,6 +125,11 @@ export const sellers = {
   skywardFire: {
     name: 'Skyward Fire',
     logo: skywardFireLogo,
+    currency: currency.GBP,
+  },
+  totalCards: {
+    name: 'Total Cards',
+    logo: totalCardsLogo,
     currency: currency.GBP,
   },
   trollTrader: {
