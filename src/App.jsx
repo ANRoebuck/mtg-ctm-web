@@ -15,7 +15,7 @@ const views = {
   results: 'Results',
   options: 'Options',
   bookmarks: 'Bookmarks',
-  // faq: 'FAQ',
+  faq: 'FAQ',
 };
 
 const App = () => {
