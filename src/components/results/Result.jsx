@@ -1,8 +1,8 @@
 import React from 'react';
 import '../../styles/results/result.scss';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
-import SaveIcon from '@material-ui/icons/Save';
-import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
+import BookmarkIcon from '@material-ui/icons/Bookmark';
+import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
 import FoilStar from "./FoilStar";
 import { observer } from 'mobx-react';
 import { pricesStore } from '../../store/PricesStore';
@@ -27,15 +27,13 @@ const Result = observer(({ result }) => {
         <img className="discovered-price-img" src={imgSrc} alt={seller}/>
       </div>
 
-      {/* <div className="stock-count">{stock.text}</div> */}
-
       <div className="price">{price_textRepresentation}</div>
 
       <div className="widgets">
         <div className="bookmark">
           {pricesStore.isBookmarked(result)
-            ? <DeleteForeverIcon onClick={() => pricesStore.deleteBookmark(result)} />
-            : <SaveIcon onClick={() => pricesStore.addBookmark(result)} />}
+            ? <BookmarkIcon onClick={() => pricesStore.deleteBookmark(result)} />
+            : <BookmarkBorderIcon onClick={() => pricesStore.addBookmark(result)} />}
         </div>
 
         <div className="product-link">
