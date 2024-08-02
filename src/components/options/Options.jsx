@@ -24,13 +24,13 @@ const Options = observer(() => (
         </div>
 
         <div className="section-heading">
-            Tick/untick to include/exclude a store <br></br> Star to show results first
+            Select stores to include/exclude from results
         </div>
+
         <div className="sellers">
             {pricesStore.sellers.map((seller, i) =>
                 <SellerOption   seller={seller} key={'seller-option-'+i}
-                                toggleSellerEnabled={pricesStore.toggleSellerEnabled}
-                                assignFavourite={pricesStore.setSellerAsFavourite} />)}
+                                toggleSellerEnabled={pricesStore.toggleSellerEnabled}/>)}
         </div>
     </>
 ));

@@ -15,7 +15,7 @@ const views = {
   results: 'Results',
   options: 'Options',
   bookmarks: 'Bookmarks',
-  faq: 'FAQ',
+  // faq: 'FAQ',
 };
 
 const App = () => {
@@ -29,7 +29,7 @@ const App = () => {
 
         <div className="compare-the-magic">
 
-            <SearchMenu />
+            <SearchMenu snapToResults={() => setTab(0)} />
 
             <AppBar position="static" >
               <Tabs value={tab} onChange={onChangeTab}>

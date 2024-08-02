@@ -6,8 +6,14 @@ import { pricesStore } from '../../store/PricesStore';
 import { getAutocompleteSuggestions, getPrices } from '../../gateway/http';
 
 
-const AutoSuggestSearchBar = observer(({ placeholderText = 'Type to search',
-  throttleMillis = 1000, maxSuggestions = 5, label = null, children, }) => {
+const AutoSuggestSearchBar = observer(({
+  placeholderText = 'Type to search',
+  throttleMillis = 1000,
+  maxSuggestions = 5,
+  label = null,
+  snapToResults,
+  children,
+}) => {
 
   const [searchTerm, setSearchTerm] = useState('');
 
@@ -49,6 +55,8 @@ const AutoSuggestSearchBar = observer(({ placeholderText = 'Type to search',
     setSuggestions(defaultSuggestions());
     pricesStore.clearResults();
 
+    snapToResults();
+
     pricesStore.activeSellers.forEach(({ name }) => {
       pricesStore.setSellerLoading(name, true);
 
@@ -57,25 +65,7 @@ const AutoSuggestSearchBar = observer(({ placeholderText = 'Type to search',
           pricesStore.addPrices(prices)
       });
     });
-  }
-
-  // const onSubmit = async (searchFor) => {
-  //   if (clearOnSearch) setDiscoveredPrices([]);
-
-  //   setLastSearched(searchFor);
-  //   setSearchTerm('');
-
-  //   // getMkmSummary(searchFor);
-
-  //   sellers.forEach(seller => {
-  //     seller.enabled && toggleSellerLoading(seller);
-  //     setSellerKeyValue('name', seller.name, 'results', '');
-  //     setSellerKeyValue('name', seller.name, 'inStock', '');
-  //   });
-  //   const enabledSellers = sellers.filter(s => s.enabled);
-  //   enabledSellers.forEach(s => getSearchResultsForSeller(s, searchFor));
-  // }
-
+  };
 
   const suggestionsToDisplay = () => searchTerm ?
     <ul>
@@ -105,8 +95,7 @@ const AutoSuggestSearchBar = observer(({ placeholderText = 'Type to search',
         : null}
 
     </div>
-
-  )
+  );
 });
 
 export default AutoSuggestSearchBar;

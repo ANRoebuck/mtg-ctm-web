@@ -7,14 +7,14 @@ import { observer } from 'mobx-react';
 import { pricesStore } from '../../store/PricesStore';
 
 
-const SearchMenu = observer(() => {
+const SearchMenu = observer(({ snapToResults }) => {
 
   const finishedLoading = pricesStore.sellersLoading === 0;
 
   return (
 
       <div className="search-menu">
-        <AutoSuggestSearchBar />
+        <AutoSuggestSearchBar snapToResults={snapToResults} />
 
         {finishedLoading ?
           <ResultsSummary resultsFound={pricesStore.sortedPrices.length} cheapest={pricesStore.cheapestPrice} />
