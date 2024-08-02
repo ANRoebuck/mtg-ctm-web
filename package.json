@@ -9,8 +9,6 @@
     "local": "npm-run-all -p watch:css start",
     "start": "react-scripts start",
     "build": "CI= react-scripts build",
-    "build:css": "node-sass --include-path ./src --include-path ./node_modules src/ -o src/",
-    "watch:css": "npm run build:css && node-sass --include-path ./src --include-path ./node_modules src/ -o src/ --watch --recursive",
     "test": "react-scripts test",
     "lint": "eslint --fix './src/**/*.{js,jsx}'",
     "eject": "react-scripts eject"
