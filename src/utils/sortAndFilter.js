@@ -31,8 +31,4 @@ export const sortFavouriteFirst = favouriteSeller => (a, b) => {
 }
 
 
-export const samePrice = (a, b) =>
-    a.seller === b.seller &&
-    a.title === b.title &&
-    a.subtitle === b.subtitle &&
-    a.expansion === b.expansion;
+export const samePrice = (a, b) => a.productRef === b.productRef;
