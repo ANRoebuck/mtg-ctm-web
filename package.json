@@ -1,8 +1,8 @@
 {
-  "name": "mtg-shelf",
+  "name": "mtg-ctm-web",
   "version": "0.1.0",
   "engines": {
-    "node": "18.x"
+    "node": "20.x"
   },
   "private": true,
   "scripts": {
@@ -20,18 +20,18 @@
     "@testing-library/jest-dom": "^5.7.0",
     "@testing-library/react": "^10.4.9",
     "@testing-library/user-event": "^7.1.2",
-    "axios": "0.21.1",
+    "axios": "^0.21.4",
     "chart.js": "^2.9.3",
     "core-js": "^3",
     "mobx": "^6.3.0",
     "mobx-persist-store": "^1.0.6",
     "mobx-react": "^7.1.0",
-    "node-sass": "^4.14.1",
     "npm-run-all": "^4.1.5",
     "react": "^16.13.1",
     "react-chartjs-2": "^2.10.0",
     "react-dom": "^16.13.1",
-    "react-scripts": "3.4.1",
+    "react-scripts": "^5.0.1",
+    "sass": "^1.77.8",
     "throttle-debounce": "^2.1.0"
   },
   "eslintConfig": {

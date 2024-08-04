@@ -1,7 +1,5 @@
 import React from 'react';
 import '../../styles/options/seller-option.scss';
-import CheckBox from './CheckBox';
-import StarCheckBox from './StarCheckBox';
 
 const SellerOption = ({ seller, toggleSellerEnabled }) => {
 
