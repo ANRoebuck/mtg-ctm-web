@@ -1,4 +1,4 @@
-import axionLogo from '../assets/axion 150x60.png';
+import axionLogo from '../../assets/axion 150x60.png';
 // import bigOrbitLogo from '../assets/bigOrbitCards 150x60.png';
 import boardsAndSwordsLogo from '../assets/boardsAndSwords 5to2.png';
 // import chaosLogo from '../assets/chaosCards 150x60.png';
