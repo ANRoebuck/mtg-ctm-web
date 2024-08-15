@@ -48,8 +48,9 @@
     .discovered-price-img-container {
       grid-area: picture;
       text-align: center;
-      border: 1px solid white;
+      // border: 1px solid black;
       border-radius: 10px;
+      overflow: hidden;
       margin-left: 10px;
       margin-right: 10px;
       background-color: white;
@@ -58,6 +59,8 @@
 
       .discovered-price-img {
         height: 250px;
+
+
       }
     }
 
@@ -110,10 +113,13 @@
 
         .discovered-price-img-container {
           margin-left: 0;
+          max-height: 150px;
+          
 
           .discovered-price-img {
             max-height: 150px;
             max-width: 100%;
+            
           }
         }
 
