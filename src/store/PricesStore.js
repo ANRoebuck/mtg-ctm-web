@@ -8,7 +8,7 @@ import { configureSellers } from '../utils/sellers';
 
 class PricesStore {
 
-    sellers = configureSellers();
+    sellers = [];
     discoveredPrices = [];
     bookmarkedPrices = [];
     sortPriceBy = sortPriceOptions.asc;
@@ -26,6 +26,12 @@ class PricesStore {
             ],
             storage: localStorage
         });
+
+        // must be run on app launch to ensure up to date sellers are shown along with any logo changes
+        // use delay to aviod race condition with restoring persisted data
+        setTimeout(() => {
+            this.updateSellerInfo();
+        }, (100));
     }
 
     get activeSellers() {
@@ -77,10 +83,10 @@ class PricesStore {
 
     setFilterFoilsBy = (filterBy) => this.filterFoilsBy = filterBy;
 
-    toggleSellerEnabled = (sellerName) => {
+    toggleSellerEnabled = (targetSellerName) => {
         this.sellers = this.sellers.map((s) => {
             let { enabled, name } = s;
-            if (name === sellerName) enabled = !enabled;
+            if (name === targetSellerName) enabled = !enabled;
             return {
                 ...s,
                 enabled,
@@ -88,11 +94,11 @@ class PricesStore {
         });
     };
 
-    setSellerAsFavourite = (sellerName) => {
+    setSellerAsFavourite = (targetSellerName) => {
         this.sellers = this.sellers.map((s) => {
             // toggles target seller AND sets all others to false
-            const favourite = s.name === sellerName ? !s.favourite : false;
-            if (favourite) console.log('setting favourite ' + sellerName);
+            const favourite = s.name === targetSellerName ? !s.favourite : false;
+            if (favourite) console.log('setting favourite ' + targetSellerName);
             return {
                 ...s,
                 favourite,
@@ -100,10 +106,10 @@ class PricesStore {
         });
     };
 
-    setSellerLoading = (sellerName, setLoading) => {
+    setSellerLoading = (targetSellerName, setLoading) => {
         this.sellers = this.sellers.map((s) => {
             let { name, loading } = s;
-            if (name === sellerName) loading = setLoading;
+            if (name === targetSellerName) loading = setLoading;
             return {
                 ...s,
                 loading,
@@ -111,7 +117,56 @@ class PricesStore {
         });
     };
 
-    get sellersLoading() { return this.sellers.filter(({ loading }) => loading).length; }
+    get sellersLoadingCount() { return this.sellers.filter(({ loading }) => loading).length; }
+
+    findSellerFromName = (targetSellerName) => this.sellers.find(({ name }) => name === targetSellerName);
+
+    updateSellerInfo = () => {
+        console.log('Updating seller info');
+
+        let updatedSellerInfo = [];
+        const newSellerInfo = configureSellers();
+        
+        const findNewInfo = (targetSellerName) => newSellerInfo.find(({ name }) => name === targetSellerName);
+
+        // remove deleted sellers
+        // remove bookmarks for deleted sellers
+        updatedSellerInfo = this.sellers.filter(({ name }) => {
+            // check if old seller still exists in new seller info
+            const updatedSeller = findNewInfo(name);
+
+            // keep seller if still exists in new info
+            if (updatedSeller) return true;
+
+            // else discard seller AND delete all bookmarks for it
+            this.bookmarkedPrices = this.bookmarkedPrices.filter(( {seller }) => seller !== name);
+            return false;
+        });
+
+        // update existing sellers
+        updatedSellerInfo = updatedSellerInfo.map(s => {
+            // take logo from new seller object and overwrite
+            const { logo } = findNewInfo(s.name);
+            return {
+                ...s,
+                logo,
+            };
+        });
+
+        // add new sellers
+        newSellerInfo.forEach(s => {
+            if (!this.findSellerFromName(s.name)) { 
+                updatedSellerInfo = updatedSellerInfo.concat(s);
+            }
+        });
+
+        // sort selers alphabetically
+        updatedSellerInfo.sort((a, b) => a.name.localeCompare(b.name));
+
+        // set updated sellers
+        this.sellers = updatedSellerInfo;
+    }
+
 }
 
 export const pricesStore = new PricesStore();

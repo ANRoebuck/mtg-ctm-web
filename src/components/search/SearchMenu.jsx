@@ -9,7 +9,7 @@ import { pricesStore } from '../../store/PricesStore';
 
 const SearchMenu = observer(({ snapToResults }) => {
 
-  const finishedLoading = pricesStore.sellersLoading === 0;
+  const finishedLoading = pricesStore.sellersLoadingCount === 0;
 
   return (
 
@@ -18,7 +18,7 @@ const SearchMenu = observer(({ snapToResults }) => {
 
         {finishedLoading ?
           <ResultsSummary resultsFound={pricesStore.sortedPrices.length} cheapest={pricesStore.cheapestPrice} />
-        : <LoadingDoughnut total={pricesStore.activeSellers.length} loading={pricesStore.sellersLoading}/>}
+        : <LoadingDoughnut total={pricesStore.activeSellers.length} loading={pricesStore.sellersLoadingCount}/>}
       </div>
 
   );

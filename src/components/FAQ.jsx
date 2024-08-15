@@ -23,7 +23,7 @@ const FAQ = () => {
 
 // const demoLink = 'https://www.youtube.com/watch?v=NGPw8K3Juc0';
 
-const notice = '© Alex Roebuck 2022';
+const notice = '© Alex Roebuck 2024';
 
 const FAQs = [
   {
@@ -56,7 +56,7 @@ const FAQs = [
           "Each retailer's website is built differently, which means they are not all equally easy to add. " +
           "Additionally, basic vetting - searching for a few popular or valuable cards - might show that a particular retailer doesn't have good stock levels. " +
           'For these and other practical reasons, a given site might not get a chance to be added to the app. ' +
-          'However, this will never be because of "playing favourites". CtM does not favour any retailer and is always looking to provide prices from more sources.'
+          'However, this will never be because of "playing favourites." CtM does not favour any retailer and is always looking to provide prices from more sources.'
   },
   {
       title: 'When is your birthday?',

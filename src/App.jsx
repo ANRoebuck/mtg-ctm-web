@@ -18,10 +18,11 @@ const views = {
   faq: 'FAQ',
 };
 
+
 const App = () => {
 
   const [tab, setTab] = useState(0);
-  const onChangeTab = (event, newValue) => setTab(newValue);
+  const onChangeTab = (_, newValue) => setTab(newValue);
 
 
   return (
@@ -62,6 +63,6 @@ const App = () => {
 
     </div>
   );
-}
+};
 
 export default App;

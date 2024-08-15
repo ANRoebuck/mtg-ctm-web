@@ -28,8 +28,8 @@ const Options = observer(() => (
         </div>
 
         <div className="sellers">
-            {pricesStore.sellers.map((seller, i) =>
-                <SellerOption   seller={seller} key={'seller-option-'+i}
+            {pricesStore.sellers.map((seller) =>
+                <SellerOption   seller={seller} key={'seller-option-' + seller.name}
                                 toggleSellerEnabled={pricesStore.toggleSellerEnabled}/>)}
         </div>
     </>
