@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../styles/options/seller-option.scss';
+import './seller-option.scss';
 
 const SellerOption = ({ seller, toggleSellerEnabled }) => {
 

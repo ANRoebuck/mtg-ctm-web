@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../styles/results/result.scss';
+import './result.scss';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import BookmarkIcon from '@material-ui/icons/Bookmark';
 import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';

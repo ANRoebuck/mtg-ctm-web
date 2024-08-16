@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../styles/search/search-menu.scss';
+import './search-menu.scss';
 import AutoSuggestSearchBar from './AutoSuggestSearchBar';
 import ResultsSummary from '../results/ResultsSummary';
 import LoadingDoughnut from './LoadingDoughnut';

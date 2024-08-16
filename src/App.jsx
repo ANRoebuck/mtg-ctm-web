@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './compare-the-magic.scss';
+import './app.scss';
 import SearchMenu from './components/search/SearchMenu';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
