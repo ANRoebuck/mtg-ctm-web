@@ -4,6 +4,7 @@ import { makePersistable } from 'mobx-persist-store';
 import { filterFoilsOptions, sortPriceOptions } from '../utils/enums';
 import { maybeFilterFoils, samePrice, sortByPrice, sortBySeller, sortFavouriteFirst, sortPriceAscending } from '../utils/sortAndFilter';
 import { configureSellers } from '../utils/sellers';
+import { getPrices } from '../gateway/http';
 
 
 class PricesStore {
@@ -25,13 +26,22 @@ class PricesStore {
                 'filterFoilsBy'
             ],
             storage: localStorage
-        });
-
-        // must be run on app launch to ensure up to date sellers are shown along with any logo changes
-        // use delay to aviod race condition with restoring persisted data
-        setTimeout(() => {
+        }).then(() => {
+            // must be run on app launch to ensure up to date sellers are shown along with any logo changes
             this.updateSellerInfo();
-        }, (100));
+        });
+    }
+
+    searchForPrices(searchTerm) {
+        this.clearResults();
+        this.activeSellers.forEach(({ name }) => {
+            this.setSellerLoading(name, true);
+
+            getPrices(name, searchTerm).then((prices) => {
+                this.setSellerLoading(name, false);
+                this.addPrices(prices)
+            });
+        });
     }
 
     get activeSellers() {
@@ -53,7 +63,7 @@ class PricesStore {
             .filter(({ seller }) => this.isActiveSeller(seller))
             .filter(maybeFilterFoils(this.filterFoilsBy))
             .sort(sortPriceAscending)
-            [0];
+        [0];
     }
 
     get sortedBookmarks() {
@@ -122,11 +132,11 @@ class PricesStore {
     findSellerFromName = (targetSellerName) => this.sellers.find(({ name }) => name === targetSellerName);
 
     updateSellerInfo = () => {
-        console.log('Updating seller info');
+        console.log('Loading seller info');
 
         let updatedSellerInfo = [];
         const newSellerInfo = configureSellers();
-        
+
         const findNewInfo = (targetSellerName) => newSellerInfo.find(({ name }) => name === targetSellerName);
 
         // remove deleted sellers
@@ -139,7 +149,7 @@ class PricesStore {
             if (updatedSeller) return true;
 
             // else discard seller AND delete all bookmarks for it
-            this.bookmarkedPrices = this.bookmarkedPrices.filter(( {seller }) => seller !== name);
+            this.bookmarkedPrices = this.bookmarkedPrices.filter(({ seller }) => seller !== name);
             return false;
         });
 
@@ -155,7 +165,7 @@ class PricesStore {
 
         // add new sellers
         newSellerInfo.forEach(s => {
-            if (!this.findSellerFromName(s.name)) { 
+            if (!this.findSellerFromName(s.name)) {
                 updatedSellerInfo = updatedSellerInfo.concat(s);
             }
         });

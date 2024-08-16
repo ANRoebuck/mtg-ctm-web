@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import '../../styles/search/auto-suggest-search-bar.scss';
 import { observer } from 'mobx-react';
 import { pricesStore } from '../../store/PricesStore';
-import { getAutocompleteSuggestions, getPrices } from '../../gateway/http';
+import { getAutocompleteSuggestions } from '../../gateway/http';
 
 
 const AutoSuggestSearchBar = observer(({
@@ -53,18 +53,8 @@ const AutoSuggestSearchBar = observer(({
   const onSubmit = (toSearchFor) => {
     setSearchTerm('');
     setSuggestions(defaultSuggestions());
-    pricesStore.clearResults();
-
     snapToResults();
-
-    pricesStore.activeSellers.forEach(({ name }) => {
-      pricesStore.setSellerLoading(name, true);
-
-      getPrices(name, toSearchFor).then((prices) => {
-          pricesStore.setSellerLoading(name, false);
-          pricesStore.addPrices(prices)
-      });
-    });
+    pricesStore.searchForPrices(toSearchFor);
   };
 
   const suggestionsToDisplay = () => searchTerm ?
