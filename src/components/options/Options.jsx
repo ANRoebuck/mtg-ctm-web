@@ -28,7 +28,12 @@ const Options = observer(() => (
         </div>
 
         <div className="sellers">
-            {pricesStore.sellers.map((seller) =>
+            {pricesStore.sellers.filter((s) => s.region === 'UK').map((seller) =>
+                <SellerOption   seller={seller} key={'seller-option-' + seller.name}
+                                toggleSellerEnabled={pricesStore.toggleSellerEnabled}/>)}
+        </div>
+        <div className="sellers sellers--international">
+            {pricesStore.sellers.filter((s) => s.region !== 'UK').map((seller) =>
                 <SellerOption   seller={seller} key={'seller-option-' + seller.name}
                                 toggleSellerEnabled={pricesStore.toggleSellerEnabled}/>)}
         </div>

@@ -1,7 +1,20 @@
 import axios from 'axios';
 
-const ctm = 'https://mtg-ctm-be.herokuapp.com/api';
+const ctmBase = process.env.REACT_APP_CTM_BASE_URL || 'https://mtg-ctm-be.herokuapp.com';
+const ctm = `${ctmBase}/api`;
 const scryfall = 'https://api.scryfall.com/';
+
+export const getSellers = () => axios
+  .get(`${ctm}/prices`)
+  .then(({ data }) => data.sellers.map(s => ({ ...s, logo: `${ctmBase}${s.logoUrl}` })));
+
+export const postClickThrough = (card, seller) => axios
+  .post(`${ctm}/click-through`, { card, seller })
+  .catch(() => {});
+
+export const postSearchHistory = (searchedFor) => axios
+  .post(`${ctm}/search-history`, { searchedFor })
+  .catch(() => {});
 
 export const getPrices = (seller, searchTerm) => axios
   .post(`${ctm}/prices`, { seller, searchTerm })

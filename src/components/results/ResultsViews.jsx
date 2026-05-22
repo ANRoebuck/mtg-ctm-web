@@ -2,15 +2,20 @@ import React from 'react';
 import { observer } from 'mobx-react';
 import { pricesStore } from '../../store/PricesStore';
 import Result from './Result';
+import DefaultView from './DefaultView';
 
 
-export const ResultsView = observer(() =>
-    <PricesView prices={pricesStore.sortedPrices}>
-        {/*<div className="mkm-container">*/}
-        {/*  {lastSearched && <MkmSummary mkmLoading={mkmLoading} mkmResults={discoveredMKM}/>}*/}
-        {/*</div>*/}
-    </PricesView>
-);
+export const ResultsView = observer(() => {
+    if (pricesStore.sortedPrices.length === 0) return <DefaultView />;
+
+    return (
+        <PricesView prices={pricesStore.sortedPrices}>
+            {/*<div className="mkm-container">*/}
+            {/*  {lastSearched && <MkmSummary mkmLoading={mkmLoading} mkmResults={discoveredMKM}/>}*/}
+            {/*</div>*/}
+        </PricesView>
+    );
+});
 
 export const BookmarksView = observer(() =>      
     <PricesView prices={pricesStore.sortedBookmarks}>

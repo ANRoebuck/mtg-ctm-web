@@ -3,8 +3,7 @@ import { makeAutoObservable } from 'mobx';
 import { makePersistable } from 'mobx-persist-store';
 import { filterFoilsOptions, sortPriceOptions } from '../utils/enums';
 import { maybeFilterFoils, samePrice, sortByPrice, sortBySeller, sortFavouriteFirst, sortPriceAscending } from '../utils/sortAndFilter';
-import { configureSellers } from '../utils/sellers';
-import { getPrices } from '../gateway/http';
+import { getPrices, getSellers, postSearchHistory } from '../gateway/http';
 
 
 class PricesStore {
@@ -14,6 +13,7 @@ class PricesStore {
     bookmarkedPrices = [];
     sortPriceBy = sortPriceOptions.asc;
     filterFoilsBy = filterFoilsOptions.all;
+    currentSearchTerm = null;
 
     constructor() {
         makeAutoObservable(this);
@@ -32,16 +32,45 @@ class PricesStore {
         });
     }
 
+    searchForMultiplePrices(searchTerms) {
+        this.clearResults();
+        postSearchHistory(searchTerms);
+
+        const searchSequentially = async () => {
+            for (const searchTerm of searchTerms) {
+                this.currentSearchTerm = searchTerm;
+
+                const requests = this.activeSellers.map(({ name }) => {
+                    this.setSellerLoading(name, true);
+
+                    return getPrices(name, searchTerm).then((prices) => {
+                        this.setSellerLoading(name, false);
+                        this.addPrices(prices);
+                    });
+                });
+
+                await Promise.all(requests);
+            }
+        };
+
+        searchSequentially().then(() => this.currentSearchTerm = null);
+    }
+
     searchForPrices(searchTerm) {
         this.clearResults();
-        this.activeSellers.forEach(({ name }) => {
+        this.currentSearchTerm = searchTerm;
+        postSearchHistory([searchTerm]);
+
+        const requests = this.activeSellers.map(({ name }) => {
             this.setSellerLoading(name, true);
 
-            getPrices(name, searchTerm).then((prices) => {
+            return getPrices(name, searchTerm).then((prices) => {
                 this.setSellerLoading(name, false);
-                this.addPrices(prices)
+                this.addPrices(prices);
             });
         });
+
+        Promise.all(requests).then(() => this.currentSearchTerm = null);
     }
 
     get activeSellers() {
@@ -131,11 +160,11 @@ class PricesStore {
 
     findSellerFromName = (targetSellerName) => this.sellers.find(({ name }) => name === targetSellerName);
 
-    updateSellerInfo = () => {
+    updateSellerInfo = async () => {
         console.log('Loading seller info');
 
         let updatedSellerInfo = [];
-        const newSellerInfo = configureSellers();
+        const newSellerInfo = await getSellers();
 
         const findNewInfo = (targetSellerName) => newSellerInfo.find(({ name }) => name === targetSellerName);
 
@@ -166,7 +195,7 @@ class PricesStore {
         // add new sellers
         newSellerInfo.forEach(s => {
             if (!this.findSellerFromName(s.name)) {
-                updatedSellerInfo = updatedSellerInfo.concat(s);
+                updatedSellerInfo = updatedSellerInfo.concat({ ...s, enabled: true, loading: false, favourite: false });
             }
         });
 
