@@ -32,3 +32,7 @@ export const getAutocompleteSuggestions = (searchTerm) => axios
 export const getImgBytes = (imgUri) => axios
   .get(imgUri)
   .then(({ data }) => data);
+
+export const getFaq = () => axios
+  .get(`${ctm}/info/faq`)
+  .then(({ data }) => data.faq);
