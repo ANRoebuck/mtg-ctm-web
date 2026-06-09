@@ -25,7 +25,8 @@ const FAQ = observer(() => {
 
 // const demoLink = 'https://www.youtube.com/watch?v=NGPw8K3Juc0';
 
-const notice = '© Alex Roebuck 2024';
+const year = new Date().getFullYear();
+const notice = `© Alex Roebuck ${year}`;
 
 
 export default FAQ;
