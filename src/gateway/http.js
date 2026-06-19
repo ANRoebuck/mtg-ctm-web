@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const ctmBase = process.env.REACT_APP_CTM_BASE_URL || 'http://compare-the-magic.duckdns.org';
+const ctmBase = process.env.REACT_APP_CTM_BASE_URL || 'https://compare-the-magic.duckdns.org';
 const ctm = `${ctmBase}/api`;
 const scryfall = 'https://api.scryfall.com/';
 
