@@ -14,7 +14,7 @@ export const postClickThrough = (card, seller) => axios
 
 export const postSearchHistory = (searchedFor) => axios
   .post(`${ctm}/search-history`, { searchedFor })
-  .catch(() => {});
+  .catch(() => {}); 
 
 export const getPrices = (seller, searchTerm) => axios
   .post(`${ctm}/prices`, { seller, searchTerm })

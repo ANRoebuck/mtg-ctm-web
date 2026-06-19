@@ -185,11 +185,13 @@ class PricesStore {
         // update existing sellers
         updatedSellerInfo = updatedSellerInfo.map(s => {
             // take logo from new seller object and overwrite
-            const { logo } = findNewInfo(s.name);
+            const { logo, region } = findNewInfo(s.name);
             return {
                 ...s,
                 logo,
+                region,
             };
+            // TODO: consider discarding old object completely and using new one
         });
 
         // add new sellers
