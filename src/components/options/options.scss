@@ -11,7 +11,40 @@
     margin: 15px;
 }
 
-.sellers--international {
+.seller-region {
     border-top: 1px solid #444;
     padding-top: 5px;
+
+    &:first-of-type {
+        border-top: none;
+    }
+}
+
+.seller-region__toggle {
+    width: 125px;
+    height: 50px;
+    margin: 5px;
+    background-color: #40403f;
+    border: none;
+    border-left: 4px solid transparent;
+    border-radius: 10px;
+    box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.6);
+    color: white;
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: border-color 0.15s;
+
+    &[data-state='all'] {
+        border-left-color: #4caf50;
+    }
+
+    &[data-state='some'] {
+        border-left-color: #f0a500;
+    }
+
+    &[data-state='none'] {
+        border-left-color: #666;
+    }
 }

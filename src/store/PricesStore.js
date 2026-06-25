@@ -131,6 +131,14 @@ class PricesStore {
 
     setFilterFoilsBy = (filterBy) => this.filterFoilsBy = filterBy;
 
+    toggleRegionEnabled = (region) => {
+        const inRegion = this.sellers.filter(s => s.region === region);
+        const allEnabled = inRegion.every(s => s.enabled);
+        this.sellers = this.sellers.map(s =>
+            s.region === region ? { ...s, enabled: !allEnabled } : s
+        );
+    };
+
     toggleSellerEnabled = (targetSellerName) => {
         this.sellers = this.sellers.map((s) => {
             let { enabled, name } = s;
