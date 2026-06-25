@@ -4,8 +4,8 @@
 
 .input-container {
 
-  position: absolute;
-  width: 400px;
+  width: 100%;
+  max-width: 400px;
 
   label {
     color: white;
@@ -69,11 +69,3 @@
 
 }
 
-@media only screen and (max-width: 479px) {
-
-  .input-container {
-    width: 50%;
-  }
-
-
-}
