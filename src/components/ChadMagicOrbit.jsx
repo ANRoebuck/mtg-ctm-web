@@ -14,7 +14,7 @@ const OUTER_R = 94
 const INNER_R = 76
 const SPAN    = 56
 const PERIOD_SLOW = 32
-const PERIOD_FAST = 3
+const PERIOD_FAST = 3 
 
 function xy(angleDeg, r) {
   const rad = angleDeg * Math.PI / 180
