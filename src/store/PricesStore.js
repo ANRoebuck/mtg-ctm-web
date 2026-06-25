@@ -14,6 +14,7 @@ class PricesStore {
     sortPriceBy = sortPriceOptions.asc;
     filterFoilsBy = filterFoilsOptions.all;
     currentSearchTerm = null;
+    isSearching = false;
 
     constructor() {
         makeAutoObservable(this);
@@ -34,6 +35,7 @@ class PricesStore {
 
     searchForMultiplePrices(searchTerms) {
         this.clearResults();
+        this.isSearching = true;
         postSearchHistory(searchTerms);
 
         const searchSequentially = async () => {
@@ -53,11 +55,15 @@ class PricesStore {
             }
         };
 
-        searchSequentially().then(() => this.currentSearchTerm = null);
+        searchSequentially().then(() => {
+            this.currentSearchTerm = null;
+            this.isSearching = false;
+        });
     }
 
     searchForPrices(searchTerm) {
         this.clearResults();
+        this.isSearching = true;
         this.currentSearchTerm = searchTerm;
         postSearchHistory([searchTerm]);
 
@@ -70,7 +76,10 @@ class PricesStore {
             });
         });
 
-        Promise.all(requests).then(() => this.currentSearchTerm = null);
+        Promise.all(requests).then(() => {
+            this.currentSearchTerm = null;
+            this.isSearching = false;
+        });
     }
 
     get activeSellers() {

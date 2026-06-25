@@ -1,3 +1,32 @@
+.default-view {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    padding: 32px;
+
+    &__text {
+        color: white;
+        margin: 0;
+        text-align: center;
+        transition: opacity 0.2s ease;
+    }
+
+    &--exiting &__text {
+        opacity: 0;
+    }
+
+    &__orbit-wrap {
+        width: 220px;
+        height: 220px;
+        transform-origin: center;
+    }
+}
+
+body.orbit-animating .loading-doughnut {
+    opacity: 0;
+}
+
 .discovered-price {
     margin: 15px;
     padding: 25px;
