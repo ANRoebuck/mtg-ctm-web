@@ -50,7 +50,10 @@ const AutoSuggestSearchBar = observer(({
   //   }
   // }, [v]);
 
+  const isSearching = pricesStore.isSearching;
+
   const onSubmit = (toSearchFor) => {
+    if (isSearching) return;
     setSearchTerm('');
     setSuggestions(defaultSuggestions());
     snapToResults();
@@ -71,18 +74,14 @@ const AutoSuggestSearchBar = observer(({
           <label>
             {label}
             <div className="auto-complete-input">
-              <input type="text" value={searchTerm} placeholder={placeholderText} onChange={handleChange}/>
+              <input type="text" value={searchTerm} placeholder={placeholderText} onChange={handleChange} disabled={isSearching} />
+              {children && <div className="children">{children}</div>}
               {suggestionsToDisplay()}
             </div>
           </label>
         </form>
       </div>
 
-      {children ?
-        <div className="children">
-          {children}
-        </div>
-        : null}
 
     </div>
   );

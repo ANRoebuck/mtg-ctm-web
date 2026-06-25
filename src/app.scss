@@ -19,6 +19,20 @@
   
     header {
       z-index: 1;
+      border-radius: 6px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4), 0 1px 3px rgba(0, 0, 0, 0.3);
+
+      .MuiTab-root {
+        transition: box-shadow 0.15s, background-color 0.15s;
+
+        &.Mui-selected {
+          background-color: rgba(0, 0, 0, 0.25);
+          box-shadow:
+            inset 3px 3px 8px rgba(0, 0, 0, 0.5),
+            inset -1px -1px 4px rgba(0, 0, 0, 0.2);
+        }
+      }
     }
   
     .tab-panel {

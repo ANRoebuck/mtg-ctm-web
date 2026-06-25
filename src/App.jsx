@@ -33,7 +33,7 @@ const App = () => {
             <SearchMenu snapToResults={() => setTab(0)} />
 
             <AppBar position="static" >
-              <Tabs value={tab} onChange={onChangeTab}>
+              <Tabs value={tab} onChange={onChangeTab} variant="fullWidth" TabIndicatorProps={{ style: { display: 'none' } }}>
                 {Object.values(views).map((view, i) => <Tab label={view} key={'tab-'+i}/>)}
               </Tabs>
             </AppBar>
