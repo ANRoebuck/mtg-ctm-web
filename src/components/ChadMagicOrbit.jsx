@@ -1,6 +1,6 @@
 import React from 'react'
 import logo from '../assets/chag-magic-logo.jpg'
-import './ChadMagicOrbit.css'
+import './ChadMagicOrbit.scss'
 
 const DEFAULT_ITEMS = [
   { color: '#e8e8e0' },

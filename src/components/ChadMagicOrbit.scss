@@ -1,0 +1,56 @@
+/* ── Theme variables (scoped to this component) ─────────────────── */
+.cmo-root {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ── Scene ──────────────────────────────────────────────────────── */
+.cmo-scene {
+  position: relative;
+  width: 220px;
+  height: 220px;
+}
+
+/* ── Logo ───────────────────────────────────────────────────────── */
+.cmo-logo-wrapper {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.7);
+}
+
+.cmo-logo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ── SVG segment overlay ────────────────────────────────────────── */
+.cmo-logo-segs {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.cmo-segs-group {
+  transform-box: view-box;
+  transform-origin: center;
+  animation: cmo-segs-orbit var(--orbit-period) linear infinite;
+  animation-delay: var(--orbit-align-delay);
+  animation-play-state: var(--orbit-play-state, running);
+}
+
+.cmo-seg {
+  transform-box: view-box;
+  transform-origin: center;
+}
+
+/* ── Keyframe ───────────────────────────────────────────────────── */
+@keyframes cmo-segs-orbit {
+  to { transform: rotate(360deg); }
+}
