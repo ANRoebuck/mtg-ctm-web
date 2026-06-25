@@ -49,7 +49,8 @@ const MultiCardSearch = ({ snapToResults, disabled = false }) => {
     return (
         <>
             <button className="multi-card-search__trigger" onClick={() => setOpen(true)} disabled={disabled}>
-                multi-search
+                <span className="multi-card-search__label">multi-search</span>
+                <span className="multi-card-search__icon" aria-hidden="true">☰</span>
             </button>
 
             <Dialog open={open} onClose={() => !resolving && setOpen(false)} fullWidth maxWidth="sm">

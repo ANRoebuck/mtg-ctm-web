@@ -48,6 +48,21 @@
     }
 }
 
+.multi-card-search__icon {
+    display: none;
+}
+
+@media only screen and (max-width: 479px) {
+    .multi-card-search__label {
+        display: none;
+    }
+
+    .multi-card-search__icon {
+        display: inline;
+        font-size: 1rem;
+    }
+}
+
 .multi-card-search__count {
     margin: 6px 0 0;
     font-size: 0.8rem;
