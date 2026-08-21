@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const ctmBase = 'https://compare-the-magic.duckdns.org';
 const ctm = `${ctmBase}/api`;
-const scryfall = 'https://api.scryfall.com/';
+const scryfall = 'https://api.scryfall.com';
 
 export const getSellers = () => axios
   .get(`${ctm}/prices`)

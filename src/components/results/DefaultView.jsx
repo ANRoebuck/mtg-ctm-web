@@ -45,7 +45,7 @@ const DefaultView = observer(() => {
 
   return (
     <div className={`default-view${exiting ? ' default-view--exiting' : ''}`}>
-      <h2 className="default-view__text">Compare the Magic<br />is a proud partner of</h2>
+      <h2 className="default-view__text">Compare the Magic<br />is a proud friend of</h2>
       <div
         ref={orbitWrapRef}
         className="default-view__orbit-wrap"
