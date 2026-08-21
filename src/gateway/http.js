@@ -9,11 +9,11 @@ export const getSellers = () => axios
   .then(({ data }) => data.sellers.map(s => ({ ...s, logo: `${ctmBase}${s.logoUrl}` })));
 
 export const postClickThrough = (card, seller) => axios
-  .post(`${ctm}/click-through`, { card, seller })
+  .post(`${ctm}/data/click-through`, { card, seller })
   .catch(() => {});
 
 export const postSearchHistory = (searchedFor) => axios
-  .post(`${ctm}/search-history`, { searchedFor })
+  .post(`${ctm}/data/search-history`, { searchedFor })
   .catch(() => {});
 
 export const getPrices = (seller, searchTerm) => axios

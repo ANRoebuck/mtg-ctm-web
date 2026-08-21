@@ -11,7 +11,7 @@ import { postClickThrough } from '../../gateway/http';
 
 const Result = observer(({ result }) => {
 
-  const { seller, title, imgSrc, productRef, expansion, price_textRepresentation, subtitle, isFoil } = result;
+  const { seller, title, imgSrc, productRef, expansion, price_textRepresentation, subtitle, isFoil, searchTerm } = result;
 
   return (
     <div className="discovered-price">
@@ -38,7 +38,7 @@ const Result = observer(({ result }) => {
         </div>
 
         <div className="product-link">
-          <ShoppingCartIcon onClick={() => { window.open(productRef, "_blank"); postClickThrough(title, seller); }}/>
+          <ShoppingCartIcon onClick={() => { window.open(productRef, "_blank"); postClickThrough(searchTerm, seller); }}/>
         </div>
       </div>
 

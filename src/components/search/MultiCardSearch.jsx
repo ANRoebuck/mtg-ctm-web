@@ -48,7 +48,7 @@ const MultiCardSearch = ({ snapToResults, disabled = false }) => {
 
     return (
         <>
-            <button className="multi-card-search__trigger" onClick={() => setOpen(true)} disabled={disabled}>
+            <button type="button" className="multi-card-search__trigger" onClick={() => setOpen(true)} disabled={disabled}>
                 <span className="multi-card-search__label">multi-search</span>
                 <span className="multi-card-search__icon" aria-hidden="true">☰</span>
             </button>

@@ -3,7 +3,7 @@ import { makeAutoObservable } from 'mobx';
 import { makePersistable } from 'mobx-persist-store';
 import { filterFoilsOptions, sortPriceOptions } from '../utils/enums';
 import { maybeFilterFoils, samePrice, sortByPrice, sortBySeller, sortFavouriteFirst, sortPriceAscending } from '../utils/sortAndFilter';
-import { getPrices, getSellers, postSearchHistory } from '../gateway/http';
+import { getPrices, getSellers, postSearchHistory, searchCards } from '../gateway/http';
 
 
 class PricesStore {
@@ -33,6 +33,22 @@ class PricesStore {
         });
     }
 
+    fetchPricesForTerm = (term) => {
+        this.currentSearchTerm = term;
+
+        const requests = this.activeSellers.map(({ name }) => {
+            this.setSellerLoading(name, true);
+
+            return getPrices(name, term).then((prices) => {
+                console.log(`${name}: ${prices.length} results`);
+                this.setSellerLoading(name, false);
+                this.addPrices(prices);
+            });
+        });
+
+        return Promise.all(requests);
+    }
+
     searchForMultiplePrices(searchTerms) {
         this.clearResults();
         this.isSearching = true;
@@ -40,18 +56,7 @@ class PricesStore {
 
         const searchSequentially = async () => {
             for (const searchTerm of searchTerms) {
-                this.currentSearchTerm = searchTerm;
-
-                const requests = this.activeSellers.map(({ name }) => {
-                    this.setSellerLoading(name, true);
-
-                    return getPrices(name, searchTerm).then((prices) => {
-                        this.setSellerLoading(name, false);
-                        this.addPrices(prices);
-                    });
-                });
-
-                await Promise.all(requests);
+                await this.fetchPricesForTerm(searchTerm);
             }
         };
 
@@ -61,22 +66,22 @@ class PricesStore {
         });
     }
 
-    searchForPrices(searchTerm) {
+    async searchForPrices(searchTerm) {
+        if (!searchTerm || !searchTerm.trim()) return;
         this.clearResults();
         this.isSearching = true;
-        this.currentSearchTerm = searchTerm;
-        postSearchHistory([searchTerm]);
 
-        const requests = this.activeSellers.map(({ name }) => {
-            this.setSellerLoading(name, true);
+        let resolvedTerm;
+        try {
+            const cards = await searchCards(searchTerm);
+            resolvedTerm = cards?.[0]?.name ?? searchTerm;
+        } catch {
+            resolvedTerm = searchTerm;
+        }
 
-            return getPrices(name, searchTerm).then((prices) => {
-                this.setSellerLoading(name, false);
-                this.addPrices(prices);
-            });
-        });
+        postSearchHistory([resolvedTerm]);
 
-        Promise.all(requests).then(() => {
+        this.fetchPricesForTerm(resolvedTerm).then(() => {
             this.currentSearchTerm = null;
             this.isSearching = false;
         });

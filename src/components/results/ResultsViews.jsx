@@ -28,7 +28,7 @@ const PricesView = ({ prices, children }) => {
     return (
         <div className="search-results">
             {children}
-            {prices.map((p, i) => <Result result={p} key={'search-result-'+i}/>)}
+            {prices.map((p) => <Result result={p} key={p.seller + '-' + p.productRef}/>)}
         </div>
     )
 };

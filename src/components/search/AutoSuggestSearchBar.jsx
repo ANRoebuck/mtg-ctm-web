@@ -20,7 +20,7 @@ const AutoSuggestSearchBar = observer(({
   const defaultSuggestions = () => ({ capturedAt: new Date(), values:[] });
   const [suggestions, setSuggestions] = useState(defaultSuggestions());
 
-  const getUpdatedSuggestions = async (term) => term.length > 2 ? getAutocompleteSuggestions(term) : [];
+  const getUpdatedSuggestions = async (term) => term.trim().length > 2 ? getAutocompleteSuggestions(term) : [];
 
   const handleChange = async (event) => {
     const updatedSearchTerm = event.target.value;
@@ -54,6 +54,7 @@ const AutoSuggestSearchBar = observer(({
 
   const onSubmit = (toSearchFor) => {
     if (isSearching) return;
+    if (!toSearchFor || !toSearchFor.trim()) return;
     setSearchTerm('');
     setSuggestions(defaultSuggestions());
     snapToResults();
