@@ -22,7 +22,7 @@ const DefaultView = observer(() => {
 
     const dx    = (targetRect.left + targetRect.width  / 2) - (wrapRect.left + wrapRect.width  / 2)
     const dy    = (targetRect.top  + targetRect.height / 2) - (wrapRect.top  + wrapRect.height / 2)
-    const scale = 80 / 220
+    const scale = targetRect.width / wrapRect.width
 
     document.body.classList.add('orbit-animating')
     setExiting(true)

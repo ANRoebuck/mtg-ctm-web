@@ -8,8 +8,8 @@
 /* ── Scene ──────────────────────────────────────────────────────── */
 .cmo-scene {
   position: relative;
-  width: 220px;
-  height: 220px;
+  width: var(--cmo-size, 220px);
+  height: var(--cmo-size, 220px);
 }
 
 /* ── Logo ───────────────────────────────────────────────────────── */

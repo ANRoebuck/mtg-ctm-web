@@ -45,15 +45,13 @@ export default function ChadMagicOrbit({ items = DEFAULT_ITEMS, logoSrc = logo, 
   const period = fast ? PERIOD_FAST : PERIOD_SLOW
 
   return (
-    <div className="cmo-root">
+    <div className="cmo-root" style={{ '--cmo-size': `${size}px` }}>
       <div
         className="cmo-scene"
         style={{
           '--orbit-play-state':  spinning ? 'running' : 'paused',
           '--orbit-period':      `${period}s`,
           '--orbit-align-delay': `${-period / 4}s`,
-          width:  size,
-          height: size,
         }}
       >
         <div className="cmo-logo-wrapper">

@@ -54,6 +54,18 @@
     }
 }
 
+@media only screen and (max-width: 479px) {
+    .default-view__orbit-wrap {
+        width: 160px;
+        height: 160px;
+
+        .cmo-scene {
+            width: 160px;
+            height: 160px;
+        }
+    }
+}
+
 body.orbit-animating .loading-doughnut {
     opacity: 0;
 }
