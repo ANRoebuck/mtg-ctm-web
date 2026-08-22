@@ -12,7 +12,8 @@
         transition: opacity 0.2s ease;
     }
 
-    &--exiting &__text {
+    &--exiting &__text,
+    &--exiting &__gemini-logo {
         opacity: 0;
     }
 
@@ -20,6 +21,36 @@
         width: 220px;
         height: 220px;
         transform-origin: center;
+    }
+
+    &__and {
+        margin-top: 8px;
+    }
+
+    &__gemini-link {
+        display: inline-block;
+        margin-top: 8px;
+        transition: transform 0.2s ease;
+
+        &:hover,
+        &:focus-visible {
+            transform: scale(1.05);
+        }
+    }
+
+    &__gemini-logo {
+        max-width: 220px;
+        width: 100%;
+        height: auto;
+        display: block;
+        border-radius: 10px;
+        box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.6);
+        transition: opacity 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    &__gemini-link:hover &__gemini-logo,
+    &__gemini-link:focus-visible &__gemini-logo {
+        box-shadow: 4px 6px 14px rgba(0, 0, 0, 0.75);
     }
 }
 

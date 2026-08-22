@@ -15,6 +15,7 @@ class PricesStore {
     filterFoilsBy = filterFoilsOptions.all;
     currentSearchTerm = null;
     isSearching = false;
+    hasShownResults = false;
 
     constructor() {
         makeAutoObservable(this);
@@ -124,7 +125,10 @@ class PricesStore {
 
     clearResults = () => this.discoveredPrices = [];
 
-    addPrices = (pricesToAdd) => this.discoveredPrices = [...this.discoveredPrices, ...pricesToAdd];
+    addPrices = (pricesToAdd) => {
+        if (pricesToAdd.length > 0) this.hasShownResults = true;
+        this.discoveredPrices = [...this.discoveredPrices, ...pricesToAdd];
+    };
 
     addBookmark = (bookmarkToAdd) => this.bookmarkedPrices = [...this.bookmarkedPrices, bookmarkToAdd];
 

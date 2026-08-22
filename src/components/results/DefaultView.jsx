@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { observer } from 'mobx-react';
 import { pricesStore } from '../../store/PricesStore';
 import ChadMagicOrbit from '../ChadMagicOrbit';
+import geminiGamesLogo from '../../assets/gemini_games_logo.png';
 import './result.scss';
 
 const DefaultView = observer(() => {
@@ -57,6 +58,16 @@ const DefaultView = observer(() => {
       >
         <ChadMagicOrbit fast={exiting} />
       </div>
+      <h2 className="default-view__text default-view__and">and</h2>
+      <a
+        href="https://geminigames.uk/"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="default-view__gemini-link"
+        aria-label="Visit the Gemini Games website"
+      >
+        <img src={geminiGamesLogo} alt="Gemini Games" className="default-view__gemini-logo" />
+      </a>
     </div>
   )
 })

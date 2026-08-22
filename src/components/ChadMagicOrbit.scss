@@ -26,6 +26,11 @@
   height: 100%;
   object-fit: cover;
   display: block;
+  /* crop away the image's own static ring so nothing can ever show through
+     the rotating ring's segment gaps, regardless of how a browser/OS
+     colour-scheme happens to render the SVG backing ring above it */
+  -webkit-clip-path: circle(38% at center);
+  clip-path: circle(38% at center);
 }
 
 /* ── SVG segment overlay ────────────────────────────────────────── */

@@ -6,7 +6,12 @@ import DefaultView from './DefaultView';
 
 
 export const ResultsView = observer(() => {
-    if (pricesStore.sortedPrices.length === 0) return <DefaultView />;
+    if (pricesStore.sortedPrices.length === 0) {
+        // results were just cleared for a new search after we've already shown results
+        // once this session - skip the default view so its wheel-fly-up animation doesn't replay
+        if (pricesStore.isSearching && pricesStore.hasShownResults) return null;
+        return <DefaultView />;
+    }
 
     return (
         <PricesView prices={pricesStore.sortedPrices}>
