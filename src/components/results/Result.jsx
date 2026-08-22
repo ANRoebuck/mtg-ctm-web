@@ -6,11 +6,12 @@ import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
 import FoilStar from "./FoilStar";
 import { observer } from 'mobx-react';
 import { pricesStore } from '../../store/PricesStore';
+import { postClickThrough } from '../../gateway/http';
 
 
 const Result = observer(({ result }) => {
 
-  const { seller, title, imgSrc, productRef, expansion, price_textRepresentation, subtitle, isFoil } = result;
+  const { seller, title, imgSrc, productRef, expansion, price_textRepresentation, subtitle, isFoil, searchTerm } = result;
 
   return (
     <div className="discovered-price">
@@ -37,7 +38,7 @@ const Result = observer(({ result }) => {
         </div>
 
         <div className="product-link">
-          <ShoppingCartIcon onClick={() => window.open(productRef, "_blank")}/>
+          <ShoppingCartIcon onClick={() => { window.open(productRef, "_blank"); postClickThrough(searchTerm, seller); }}/>
         </div>
       </div>
 

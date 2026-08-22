@@ -20,7 +20,7 @@ const AutoSuggestSearchBar = observer(({
   const defaultSuggestions = () => ({ capturedAt: new Date(), values:[] });
   const [suggestions, setSuggestions] = useState(defaultSuggestions());
 
-  const getUpdatedSuggestions = async (term) => term.length > 2 ? getAutocompleteSuggestions(term) : [];
+  const getUpdatedSuggestions = async (term) => term.trim().length > 2 ? getAutocompleteSuggestions(term) : [];
 
   const handleChange = async (event) => {
     const updatedSearchTerm = event.target.value;
@@ -50,7 +50,11 @@ const AutoSuggestSearchBar = observer(({
   //   }
   // }, [v]);
 
+  const isSearching = pricesStore.isSearching;
+
   const onSubmit = (toSearchFor) => {
+    if (isSearching) return;
+    if (!toSearchFor || !toSearchFor.trim()) return;
     setSearchTerm('');
     setSuggestions(defaultSuggestions());
     snapToResults();
@@ -71,18 +75,14 @@ const AutoSuggestSearchBar = observer(({
           <label>
             {label}
             <div className="auto-complete-input">
-              <input type="text" value={searchTerm} placeholder={placeholderText} onChange={handleChange}/>
+              <input type="text" value={searchTerm} placeholder={placeholderText} onChange={handleChange} disabled={isSearching} />
+              {children && <div className="children">{children}</div>}
               {suggestionsToDisplay()}
             </div>
           </label>
         </form>
       </div>
 
-      {children ?
-        <div className="children">
-          {children}
-        </div>
-        : null}
 
     </div>
   );

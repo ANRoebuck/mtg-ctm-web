@@ -1,7 +1,20 @@
 import axios from 'axios';
 
-const ctm = 'https://mtg-ctm-be.herokuapp.com/api';
-const scryfall = 'https://api.scryfall.com/';
+const ctmBase = 'https://compare-the-magic.duckdns.org';
+const ctm = `${ctmBase}/api`;
+const scryfall = 'https://api.scryfall.com';
+
+export const getSellers = () => axios
+  .get(`${ctm}/prices`)
+  .then(({ data }) => data.sellers.map(s => ({ ...s, logo: `${ctmBase}${s.logoUrl}` })));
+
+export const postClickThrough = (card, seller) => axios
+  .post(`${ctm}/data/click-through`, { card, seller })
+  .catch(() => {});
+
+export const postSearchHistory = (searchedFor) => axios
+  .post(`${ctm}/data/search-history`, { searchedFor })
+  .catch(() => {});
 
 export const getPrices = (seller, searchTerm) => axios
   .post(`${ctm}/prices`, { seller, searchTerm })
@@ -19,3 +32,7 @@ export const getAutocompleteSuggestions = (searchTerm) => axios
 export const getImgBytes = (imgUri) => axios
   .get(imgUri)
   .then(({ data }) => data);
+
+export const getFaq = () => axios
+  .get(`${ctm}/info/faq`)
+  .then(({ data }) => data.faq);

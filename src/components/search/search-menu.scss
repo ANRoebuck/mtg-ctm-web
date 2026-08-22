@@ -28,18 +28,30 @@
       .results-summary {
         grid-area: doughnut;
         color: white;
-        margin: 10px;
+        margin: 4px 10px;
         text-align: center;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        font-size: clamp(0.6rem, 1.4vw, 0.875rem);
+        line-height: 1.3;
       }
-  
+
       .results-summary-section {
         border-bottom: solid 1px grey;
-        margin-bottom: 5px;
-        padding-bottom: 5px;
+        margin-bottom: 3px;
+        padding-bottom: 3px;
       }
-  
+
+      .results-summary-section:last-child {
+        border-bottom: none;
+        margin-bottom: 0;
+        padding-bottom: 0;
+      }
+
       .results-summary-light {
-        font-size: 75%;
+        font-size: 85%;
       }
   
       .MuiPaper-root {
@@ -55,7 +67,7 @@
 
     .search-menu {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 11fr 9fr;
       grid-template-rows: auto auto;
       grid-template-areas:
               "search doughnut"

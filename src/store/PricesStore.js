@@ -3,8 +3,7 @@ import { makeAutoObservable } from 'mobx';
 import { makePersistable } from 'mobx-persist-store';
 import { filterFoilsOptions, sortPriceOptions } from '../utils/enums';
 import { maybeFilterFoils, samePrice, sortByPrice, sortBySeller, sortFavouriteFirst, sortPriceAscending } from '../utils/sortAndFilter';
-import { configureSellers } from '../utils/sellers';
-import { getPrices } from '../gateway/http';
+import { getPrices, getSellers, postSearchHistory, searchCards } from '../gateway/http';
 
 
 class PricesStore {
@@ -14,6 +13,9 @@ class PricesStore {
     bookmarkedPrices = [];
     sortPriceBy = sortPriceOptions.asc;
     filterFoilsBy = filterFoilsOptions.all;
+    currentSearchTerm = null;
+    isSearching = false;
+    hasShownResults = false;
 
     constructor() {
         makeAutoObservable(this);
@@ -32,15 +34,57 @@ class PricesStore {
         });
     }
 
-    searchForPrices(searchTerm) {
-        this.clearResults();
-        this.activeSellers.forEach(({ name }) => {
+    fetchPricesForTerm = (term) => {
+        this.currentSearchTerm = term;
+
+        const requests = this.activeSellers.map(({ name }) => {
             this.setSellerLoading(name, true);
 
-            getPrices(name, searchTerm).then((prices) => {
+            return getPrices(name, term).then((prices) => {
+                console.log(`${name}: ${prices.length} results`);
                 this.setSellerLoading(name, false);
-                this.addPrices(prices)
+                this.addPrices(prices);
             });
+        });
+
+        return Promise.all(requests);
+    }
+
+    searchForMultiplePrices(searchTerms) {
+        this.clearResults();
+        this.isSearching = true;
+        postSearchHistory(searchTerms);
+
+        const searchSequentially = async () => {
+            for (const searchTerm of searchTerms) {
+                await this.fetchPricesForTerm(searchTerm);
+            }
+        };
+
+        searchSequentially().then(() => {
+            this.currentSearchTerm = null;
+            this.isSearching = false;
+        });
+    }
+
+    async searchForPrices(searchTerm) {
+        if (!searchTerm || !searchTerm.trim()) return;
+        this.clearResults();
+        this.isSearching = true;
+
+        let resolvedTerm;
+        try {
+            const cards = await searchCards(searchTerm);
+            resolvedTerm = cards?.[0]?.name ?? searchTerm;
+        } catch {
+            resolvedTerm = searchTerm;
+        }
+
+        postSearchHistory([resolvedTerm]);
+
+        this.fetchPricesForTerm(resolvedTerm).then(() => {
+            this.currentSearchTerm = null;
+            this.isSearching = false;
         });
     }
 
@@ -81,7 +125,10 @@ class PricesStore {
 
     clearResults = () => this.discoveredPrices = [];
 
-    addPrices = (pricesToAdd) => this.discoveredPrices = [...this.discoveredPrices, ...pricesToAdd];
+    addPrices = (pricesToAdd) => {
+        if (pricesToAdd.length > 0) this.hasShownResults = true;
+        this.discoveredPrices = [...this.discoveredPrices, ...pricesToAdd];
+    };
 
     addBookmark = (bookmarkToAdd) => this.bookmarkedPrices = [...this.bookmarkedPrices, bookmarkToAdd];
 
@@ -92,6 +139,14 @@ class PricesStore {
     setSortPriceBy = (sortBy) => this.sortPriceBy = sortBy;
 
     setFilterFoilsBy = (filterBy) => this.filterFoilsBy = filterBy;
+
+    toggleRegionEnabled = (region) => {
+        const inRegion = this.sellers.filter(s => s.region === region);
+        const allEnabled = inRegion.every(s => s.enabled);
+        this.sellers = this.sellers.map(s =>
+            s.region === region ? { ...s, enabled: !allEnabled } : s
+        );
+    };
 
     toggleSellerEnabled = (targetSellerName) => {
         this.sellers = this.sellers.map((s) => {
@@ -131,11 +186,11 @@ class PricesStore {
 
     findSellerFromName = (targetSellerName) => this.sellers.find(({ name }) => name === targetSellerName);
 
-    updateSellerInfo = () => {
+    updateSellerInfo = async () => {
         console.log('Loading seller info');
 
         let updatedSellerInfo = [];
-        const newSellerInfo = configureSellers();
+        const newSellerInfo = await getSellers();
 
         const findNewInfo = (targetSellerName) => newSellerInfo.find(({ name }) => name === targetSellerName);
 
@@ -156,17 +211,19 @@ class PricesStore {
         // update existing sellers
         updatedSellerInfo = updatedSellerInfo.map(s => {
             // take logo from new seller object and overwrite
-            const { logo } = findNewInfo(s.name);
+            const { logo, region } = findNewInfo(s.name);
             return {
                 ...s,
                 logo,
+                region,
             };
+            // TODO: consider discarding old object completely and using new one
         });
 
         // add new sellers
         newSellerInfo.forEach(s => {
             if (!this.findSellerFromName(s.name)) {
-                updatedSellerInfo = updatedSellerInfo.concat(s);
+                updatedSellerInfo = updatedSellerInfo.concat({ ...s, enabled: true, loading: false, favourite: false });
             }
         });
 

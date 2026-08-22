@@ -1,9 +1,81 @@
+.default-view {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    padding: 32px;
+
+    &__text {
+        color: white;
+        margin: 0;
+        text-align: center;
+        transition: opacity 0.2s ease;
+    }
+
+    &--exiting &__text,
+    &--exiting &__gemini-logo {
+        opacity: 0;
+    }
+
+    &__orbit-wrap {
+        width: 220px;
+        height: 220px;
+        transform-origin: center;
+    }
+
+    &__and {
+        margin-top: 8px;
+    }
+
+    &__gemini-link {
+        display: inline-block;
+        margin-top: 8px;
+        transition: transform 0.2s ease;
+
+        &:hover,
+        &:focus-visible {
+            transform: scale(1.05);
+        }
+    }
+
+    &__gemini-logo {
+        max-width: 220px;
+        width: 100%;
+        height: auto;
+        display: block;
+        border-radius: 10px;
+        box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.6);
+        transition: opacity 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    &__gemini-link:hover &__gemini-logo,
+    &__gemini-link:focus-visible &__gemini-logo {
+        box-shadow: 4px 6px 14px rgba(0, 0, 0, 0.75);
+    }
+}
+
+@media only screen and (max-width: 479px) {
+    .default-view__orbit-wrap {
+        width: 160px;
+        height: 160px;
+
+        .cmo-scene {
+            width: 160px;
+            height: 160px;
+        }
+    }
+}
+
+body.orbit-animating .loading-doughnut {
+    opacity: 0;
+}
+
 .discovered-price {
     margin: 15px;
     padding: 25px;
     background-color: white;
-    border: solid 1px black;
     border-radius: 10px;
+    box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.6);
     display: grid;
 
     grid-template-columns: 150px 2fr 1fr 1fr;
