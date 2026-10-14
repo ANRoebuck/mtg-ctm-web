@@ -206,3 +206,8 @@ body.orbit-animating .loading-doughnut {
 
       }
 }
+.bookmarks-toolbar {
+    display: flex;
+    justify-content: flex-end;
+    padding: 8px 16px;
+}

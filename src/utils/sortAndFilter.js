@@ -31,4 +31,7 @@ export const sortFavouriteFirst = favouriteSeller => (a, b) => {
 }
 
 
-export const samePrice = (a, b) => a.productRef === b.productRef;
+// derived rather than stored, so bookmarks persisted before this existed still work
+export const priceId = ({ seller, productRef, isFoil }) => `${seller}|${productRef}|${Boolean(isFoil)}`;
+
+export const samePrice = (a, b) => priceId(a) === priceId(b);
