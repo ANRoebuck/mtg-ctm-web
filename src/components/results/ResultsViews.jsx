@@ -35,6 +35,9 @@ export const BookmarksView = observer(() =>
     <PricesView prices={pricesStore.sortedBookmarks}>
         {pricesStore.sortedBookmarks.length > 0 && (
             <div className="bookmarks-toolbar">
+                <span className="bookmarks-total">
+                    {pricesStore.sortedBookmarks.length} bookmarked {pricesStore.sortedBookmarks.length === 1 ? 'item' : 'items'}
+                </span>
                 <Button variant="contained" startIcon={<GetAppIcon />} onClick={downloadBookmarks}>
                     Download as CSV
                 </Button>

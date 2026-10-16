@@ -208,6 +208,11 @@ body.orbit-animating .loading-doughnut {
 }
 .bookmarks-toolbar {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
+    align-items: center;
     padding: 8px 16px;
+
+    .bookmarks-total {
+        color: white;
+    }
 }
